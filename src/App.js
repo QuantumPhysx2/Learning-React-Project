@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const owmAPI = {
+const api = {
     key: "5cceb36da4f7530937ddc6a1963aef8f",
     base: "https://api.openweather.map.org/data/2.5"
 }
@@ -14,12 +14,16 @@ function App() {
         // ...if event identifies the 'Enter' button on search-box...
         if (evt.key === "Enter") {
             // ...send a GET request
-            // GET /api.openweather.map/org/data/2.5/weather?q={location}/units=metric/APPID={API key}
-            fetch(`${owmAPI.base}weather?q=${query}&units=metric&APPID=${owmAPI.key}`)
+            // GET /api.openweather.map/org/data/2.5/weather?q={location}units=metricAPPID={API key}
+            fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
                 // use a Promise to get the result in JSON format
                 .then(res => res.json())
                 // set variable 'result' to the fetched data from the Promise
-                .then(result => setWeather(result));
+                .then(result => {
+                    setWeather(result);
+                    setQuery('');
+                    console.log(result);
+                });
         }
     }
 
@@ -36,27 +40,30 @@ function App() {
     }
 
     return (
-        <div className="app">
+        <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 16) ? "app warm" : "app") : "app"}>
             <main>
                 <div className="search-box">
-                    <input type="text" className="search-bar" placeholder="Search..." />
+                    <input type="text" className="search-bar" placeholder="Search..." onChange={e => setQuery(e.target.value)} value={query} onKeyPress={search} />
                 </div>
+                {/* React version of if-statement using a ternary (?) operator */}
+                {(typeof weather.main != "undefined") ? (
                 <div className="location-box">
                     <div className="location">
-                        New Your City, US
+                        {weather.name}, {weather.sys.country}
                     </div>
                     <div className="date">
                         {dateBuilder(new Date())}
                     </div>
                     <div className="weather-box">
                         <div className="temp">
-                            15°c
+                            {Math.round(weather.main.temp)}°c
                         </div>
                         <div className="weather">
-                            Sunny
+                            {weather.weather[0].main}
                         </div>
                     </div>
                 </div>
+                ) : ('')}
             </main>
         </div>
     );
