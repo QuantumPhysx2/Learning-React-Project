@@ -1,13 +1,51 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    font-family: "Monsteratt", sans-serif;;
+}
+
+.app {
+    background-image: url("./assets//images/ph-img1.jpg");
+    background-size: cover;
+    background-position: bottom;
+    transition: 0.4s ease-out;
+}
+
+.app .warm {
+    background-image: url("./assets/images/ph-img2.jpg");
+}
+
+main {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.75));
+    min-height: 100vh;
+    padding: 25px;
+}
+
+.search-box {
+    margin: 0 0 75px;
+    width: 100%;
+}
+
+.search-box .search-bar {
+    appearance: none;
+    background: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 5px rgba(0, 0, 0, 0.2);
+    color: #111820;
+    display: block;
+    margin-top: -25px;
+    padding: 15px;
+    outline: none;
+    transition: 0.4s ease;
+    width: 100%;
+}
+
+.search-box .search-bar:focus {
+    background-color: rgba(255, 255, 255, 0.75);
 }
