@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 const owmAPI = {
     key: "5cceb36da4f7530937ddc6a1963aef8f",
     base: "https://api.openweather.map.org/data/2.5"
 }
 
 function App() {
+    // Declaring multiple variables that will be used to transition between states in the app
+    const [query, setQuery] = useState('');
+    const [weather, setWeather] = useState({});
+
+    // Declare 'search' var which listens for an event
+    const search = evt => {
+        // ...if event identifies the 'Enter' button on search-box...
+        if (evt.key === "Enter") {
+            // ...send a GET request
+            // GET /api.openweather.map/org/data/2.5/weather?q={location}/units=metric/APPID={API key}
+            fetch(`${owmAPI.base}weather?q=${query}&units=metric&APPID=${owmAPI.key}`)
+                // use a Promise to get the result in JSON format
+                .then(res => res.json())
+                // set variable 'result' to the fetched data from the Promise
+                .then(result => setWeather(result));
+        }
+    }
+
     const dateBuilder = (d) => {
         let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
