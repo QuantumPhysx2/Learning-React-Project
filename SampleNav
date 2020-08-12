@@ -1,0 +1,37 @@
+import React from 'react';
+
+function PageNav()
+{
+  return(
+    <NavBar />
+  );
+}
+
+function NavBar()
+{
+  function NavItem(props)
+  {
+    return(
+      <li>
+        <NavLink exact to={props.NavItemTo} title={props.NavItemTitle} className="nav-item">
+          // Use ternary statement to fill the '<i>' element with a classname icon
+          // ...otherwise, set to null to prevent loading an empty '<i>' element in the DOM
+          {props.NavItemIconLeft ? <i className={props.NavItemIconLeft} /> : null}
+          <p>{props.NavItemText}</p>
+          {props.NavItemIconRight ? <i className={props.NavItemIconRight} /> : null}
+        </NavLink>
+      </li>
+    );
+  }
+  
+  return(
+    <ul>
+      // Bear in mind that these icons may or may not be existing
+      <NavItem NavItemTo="/" NavItemTitle="Home" NavItemText="Home" NavItemIconLeft="fas-fa-home" />
+      <NavItem NavItemTo="/products" NavItemTitle="Products" NavItemText="Products" NavItemIconLeft="fas-fa-cart" />
+      <NavItem NavItemTo="/about" NavItemTitle="About" NavItemText="About" NavItemIconLeft="fas-fa-question" />
+    </ul>
+  );
+}
+
+export default PageNav;
